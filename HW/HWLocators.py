@@ -24,5 +24,6 @@ expected_result = "Sign in"
 actual_result = driver.find_element(By.XPATH, "//h1[@class='a-spacing-small']").text
 
 assert expected_result == actual_result, f'Expected {expected_result} but got {actual_result}'
+assert driver.find_element(By.ID, 'ap_email').is_displayed(), 'Email field was not found'
 
 driver.quit()
