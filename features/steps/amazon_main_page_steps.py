@@ -6,6 +6,8 @@ SEARCH_ICON = (By.ID, 'nav-search-submit-button')
 HAM_MENU = (By.ID, 'nav-hamburger-menu')
 FOOTER_LINKS = (By.CSS_SELECTOR, 'table.navFooterMoreOnAmazon td.navFooterDescItem')
 HEADER_LINKS = (By.CSS_SELECTOR, '#nav-xshop a.nav-a')
+BESTSELLERS_BUTTON = (By.CSS_SELECTOR, 'a.nav-a[href*="/gp/bestsellers"]')
+CUSTOMER_SERVICE_BUTTON = (By.CSS_SELECTOR, 'a.nav-a[href*="=nav_cs_customerservice"]')
 
 
 @given('Open Amazon page')
@@ -31,6 +33,16 @@ def click_search(context):
 @when('Click on Cart icon')
 def click_cart_icon(context):
     context.driver.find_element(By.ID, 'nav-cart-count-container').click()
+
+
+@when('Click on BestSellers button')
+def click_bestsellers_button(context):
+    context.driver.find_element(*BESTSELLERS_BUTTON).click()
+
+
+@when('Click on Customer Service button')
+def click_customer_service_button(context):
+    context.driver.find_element(*CUSTOMER_SERVICE_BUTTON).click()
 
 
 @then('Verify that {number} items shown')
