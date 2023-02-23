@@ -1,7 +1,6 @@
 # Created by TANYA at 2/16/23
 Feature: Homework Amazon page tests
 
-
   Scenario: Logged out user can navigate to Sign in page
     Given Open Amazon page
     When Click on Returns & Orders
