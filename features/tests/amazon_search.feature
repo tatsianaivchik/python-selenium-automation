@@ -11,3 +11,13 @@ Feature: Amazon search tests
     |coffee      |"coffee"       |
     |table       |"table"        |
     |mug         |"mug"          |
+
+  Scenario: Verify that product on Amazon search results has name and image
+    Given Open Amazon page
+    When Input text monkey
+    And Click on search button
+    Then Verify that text "monkey" is shown
+    And Verify that every product has name and image
+
+
+

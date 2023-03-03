@@ -1,4 +1,5 @@
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
 from behave import given, when, then
 
 AMAZON_BEST_SELLERS = (By.ID, 'zg_banner_text')
@@ -7,6 +8,7 @@ BESTSELLERS_LINKS = (By.CSS_SELECTOR, '#zg_header a')
 
 @then('Verify that is BestSellers page')
 def verify_that_is_bestsellers_page(context):
+    context.driver.wait.until(EC.url_contains('https://www.amazon.com/gp/bestsellers'))
     context.driver.find_element(*AMAZON_BEST_SELLERS)
 
 

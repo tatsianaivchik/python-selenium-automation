@@ -9,7 +9,6 @@ ALL_HELP_TOPICS = (By.XPATH, '//h2[contains(text(),"All help topics")]')
 HELP_TOPICS_LIST = (By.CSS_SELECTOR, 'div.help-topics-list-wrapper ul.help-topics')
 
 
-
 @then("Verify Customer Service's page UI elements are present")
 def verify_cs_ui_elements(context):
     assert context.driver.find_element(*WELCOME_AMAZON_CUSTOMER_SERVICE).is_displayed(), 'Welcome Customer Service field was not found'

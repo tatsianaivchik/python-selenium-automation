@@ -31,3 +31,18 @@ def verify_user_can_select_colors(context):
         actual_colors += [current_color]
 
     assert expected_colors == actual_colors, f'Expected {expected_colors} but got {actual_colors}'
+
+
+@then('Verify user can select different colors')
+def verify_user_can_pick_different_colors(context):
+    all_color_options = context.driver.find_elements(*COLOR_OPTIONS)
+    expected_colors = ['Black', 'Blue, Over Dye', 'Bright White', 'Dark Blue Vintage', 'Dark Indigo/Rinsed', 'Dark Khaki Brown', 'Dark Wash', 'Indigo Wash', 'Light Blue Vintage', 'Light Khaki Brown', 'Light Wash', 'Medium Blue, Vintage', 'Medium Wash', 'Olive', 'Rinsed', 'Sage Green', 'Vintage Wash', 'Washed Black', 'Washed Grey']
+
+    actual_colors = []
+    for color in all_color_options:
+        color.click()
+        current_color = context.driver.find_element(*CURRENT_COLOR).text
+        #print('Current color: ', current_color)
+        actual_colors += [current_color]
+
+    assert expected_colors == actual_colors, f'Expected {expected_colors} but got {actual_colors}'

@@ -3,6 +3,10 @@ from behave import given, when, then
 
 PRODUCT_NAME = (By.ID, 'productTitle')
 PRODUCT_PRICE = (By.CSS_SELECTOR, 'span.a-price.priceToPay') #current price broken into 2 lines(test failed)
+SEARCH_RESULTS = (By.CSS_SELECTOR, 'div[cel_widget_id*="MAIN-SEARCH_RESULTS-"]')
+PRODUCT_IMAGE = (By.CSS_SELECTOR, 'div[cel_widget_id*="MAIN-SEARCH_RESULTS-"] div.s-product-image-container')
+PRODUCT_NAME_FIELD = (By.CSS_SELECTOR, 'div[cel_widget_id*="MAIN-SEARCH_RESULTS-"] a.a-link-normal[href*="/gp/slredirect/"]')
+
 
 @then('Verify that text {expected_result} is shown')
 def verify_search_result(context, expected_result):
@@ -21,3 +25,13 @@ def get_product_name(context):
     print(f'Current product: {context.product_name}')
     context.product_price = context.driver.find_element(*PRODUCT_PRICE).text
     print(f'Current product price: {context.product_price}')
+
+
+@then('Verify that every product has name and image')
+def verify_every_prod_has_name_and_image(context):
+    all_products = context.driver.find_elements(*SEARCH_RESULTS)
+    print('All results: ', all_products)
+
+    for item in all_products:
+        context.driver.find_element(*PRODUCT_IMAGE).is_displayed()
+        context.driver.find_element(*PRODUCT_NAME_FIELD).is_displayed()

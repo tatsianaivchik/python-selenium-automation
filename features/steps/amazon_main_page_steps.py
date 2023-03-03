@@ -54,6 +54,7 @@ def click_signin(context):
 
 @then('Verify that {number} items shown')
 def num_items_shown(context, number):
+    context.driver.implicitly_wait(2)
     actual_result = context.driver.find_element(By.ID, 'nav-cart-count').text
     assert actual_result == str(number), f'Expected {number} but got {actual_result}'
 
