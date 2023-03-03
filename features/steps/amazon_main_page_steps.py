@@ -1,4 +1,5 @@
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
 from behave import given, when, then
 
 AMAZON_SEARCH_FIELD = (By.ID, 'twotabsearchtextbox')
@@ -6,8 +7,9 @@ SEARCH_ICON = (By.ID, 'nav-search-submit-button')
 HAM_MENU = (By.ID, 'nav-hamburger-menu')
 FOOTER_LINKS = (By.CSS_SELECTOR, 'table.navFooterMoreOnAmazon td.navFooterDescItem')
 HEADER_LINKS = (By.CSS_SELECTOR, '#nav-xshop a.nav-a')
-BESTSELLERS_BUTTON = (By.CSS_SELECTOR, 'a.nav-a[href*="/gp/bestsellers"]')
+BESTSELLERS_BUTTON = (By.CSS_SELECTOR, 'a.nav-a[href*="/gp/bestsellers/"]')
 CUSTOMER_SERVICE_BUTTON = (By.CSS_SELECTOR, 'a.nav-a[href*="=nav_cs_customerservice"]')
+SIGN_IN_BTN = (By.CSS_SELECTOR, '#nav-signin-tooltip a.nav-action-button')
 
 
 @given('Open Amazon page')
@@ -43,6 +45,11 @@ def click_bestsellers_button(context):
 @when('Click on Customer Service button')
 def click_customer_service_button(context):
     context.driver.find_element(*CUSTOMER_SERVICE_BUTTON).click()
+
+
+@when('Click Sign In from popup')
+def click_signin(context):
+    context.driver.wait.until(EC.visibility_of_element_located(SIGN_IN_BTN)).click()
 
 
 @then('Verify that {number} items shown')

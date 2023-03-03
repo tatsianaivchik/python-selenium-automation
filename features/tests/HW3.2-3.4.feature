@@ -15,11 +15,12 @@ Feature: Homework Amazon page tests
 
   Scenario: Adding item in the cart
     Given Open Amazon page
-    When Input text glasses
+    When Input text ZENNI glasses
     And Click on search button
-    When Click on the first item in Results
+    And Click on the first item in Results
+    And Store product name and price
     And Add product to the cart
     Then Verify that 1 items shown
-    And Check if product displays in the cart
+    And Verify cart has correct product and price
 
 

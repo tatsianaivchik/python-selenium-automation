@@ -2,7 +2,7 @@ from selenium.webdriver.common.by import By
 from behave import given, when, then
 
 AMAZON_BEST_SELLERS = (By.ID, 'zg_banner_text')
-BESTSELLERS_LINKS = (By.CSS_SELECTOR, 'div._p13n-zg-nav-tab-all_style_zg-tabs__EYPLq a[href*="ref=zg_bs_tab"]')
+BESTSELLERS_LINKS = (By.CSS_SELECTOR, '#zg_header a')
 
 
 @then('Verify that is BestSellers page')
