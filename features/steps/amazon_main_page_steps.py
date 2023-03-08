@@ -1,6 +1,7 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from behave import given, when, then
+from time import sleep
 
 AMAZON_SEARCH_FIELD = (By.ID, 'twotabsearchtextbox')
 SEARCH_ICON = (By.ID, 'nav-search-submit-button')
@@ -51,6 +52,25 @@ def click_customer_service_button(context):
 def click_signin(context):
     context.driver.wait.until(EC.visibility_of_element_located(SIGN_IN_BTN)).click()
 
+    context.driver.wait.until(
+        EC.visibility_of_element_located(SIGN_IN_BTN),
+        message='Sign In btn not visible'
+    ).click()
+
+
+@when('Wait for {sec} seconds')
+def wait_for_sec(context, sec):
+    sleep(int(sec))
+
+@then('Verify Sign In popup shown')
+def verify_signin_popup_visible(context):
+    context.driver.wait.until(EC.visibility_of_element_located(SIGN_IN_BTN), message='Signin btn not found')
+
+
+@then('Verify Sign In popup disappeared')
+def verify_signin_popup_not_visible(context):
+    context.driver.wait.until(EC.invisibility_of_element_located(SIGN_IN_BTN), message='Signin btn did not disappear')
+
 
 @then('Verify that {number} items shown')
 def num_items_shown(context, number):
@@ -61,7 +81,18 @@ def num_items_shown(context, number):
 
 @then('Verify hamburger menu icon present')
 def verify_ham_menu_present(context):
-    context.driver.find_element(*HAM_MENU)
+    context.ham_menu = context.driver.find_element(*HAM_MENU)
+    print('Before refresh')
+    print(context.ham_menu)
+    context.driver.refresh()
+
+
+@when('Click on ham menu')
+def click_ham_menu(context):
+    context.ham_menu = context.driver.find_element(*HAM_MENU)
+    print('After refresh')
+    print(context.ham_menu)
+    context.ham_menu.click()
 
 
 @then('Verify that footer has {expected_amount} links')

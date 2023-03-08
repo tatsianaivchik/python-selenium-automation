@@ -3,9 +3,9 @@ from behave import given, when, then
 
 PRODUCT_NAME = (By.ID, 'productTitle')
 PRODUCT_PRICE = (By.CSS_SELECTOR, 'span.a-price.priceToPay') #current price broken into 2 lines(test failed)
-SEARCH_RESULTS = (By.CSS_SELECTOR, 'div[cel_widget_id*="MAIN-SEARCH_RESULTS-"]')
-PRODUCT_IMAGE = (By.CSS_SELECTOR, 'div[cel_widget_id*="MAIN-SEARCH_RESULTS-"] div.s-product-image-container')
-PRODUCT_NAME_FIELD = (By.CSS_SELECTOR, 'div[cel_widget_id*="MAIN-SEARCH_RESULTS-"] a.a-link-normal[href*="/gp/slredirect/"]')
+SEARCH_RESULTS = (By.CSS_SELECTOR, '[data-component-type="s-search-result"]')
+PRODUCT_IMAGE = (By.CSS_SELECTOR, '.s-image[data-image-latency="s-product-image"]')
+PRODUCT_NAME_FIELD = (By.CSS_SELECTOR, 'h2 span.a-text-normal')
 
 
 @then('Verify that text {expected_result} is shown')
@@ -30,8 +30,9 @@ def get_product_name(context):
 @then('Verify that every product has name and image')
 def verify_every_prod_has_name_and_image(context):
     all_products = context.driver.find_elements(*SEARCH_RESULTS)
-    print('All results: ', all_products)
+    print(f'Amount of listed products: {len(all_products)}')
+    #print('All results: ', all_products)
 
-    for item in all_products:
-        context.driver.find_element(*PRODUCT_IMAGE).is_displayed()
-        context.driver.find_element(*PRODUCT_NAME_FIELD).is_displayed()
+    for product in all_products:
+        assert product.find_element(*PRODUCT_IMAGE).is_displayed(), 'Product image is missing'
+        assert product.find_element(*PRODUCT_NAME_FIELD).text, 'Product name is missing'
