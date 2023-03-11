@@ -3,8 +3,8 @@ from selenium.webdriver.support import expected_conditions as EC
 from behave import given, when, then
 from time import sleep
 
-AMAZON_SEARCH_FIELD = (By.ID, 'twotabsearchtextbox')
-SEARCH_ICON = (By.ID, 'nav-search-submit-button')
+# AMAZON_SEARCH_FIELD = (By.ID, 'twotabsearchtextbox')
+# SEARCH_ICON = (By.ID, 'nav-search-submit-button')
 HAM_MENU = (By.ID, 'nav-hamburger-menu')
 FOOTER_LINKS = (By.CSS_SELECTOR, 'table.navFooterMoreOnAmazon td.navFooterDescItem')
 HEADER_LINKS = (By.CSS_SELECTOR, '#nav-xshop a.nav-a')
@@ -15,22 +15,26 @@ SIGN_IN_BTN = (By.CSS_SELECTOR, '#nav-signin-tooltip a.nav-action-button')
 
 @given('Open Amazon page')
 def open_amazon(context):
-    context.driver.get('https://www.amazon.com/')
+    # context.driver.get('https://www.amazon.com/')
+    context.app.main_page.open_main()
 
 
 @when('Click on Returns & Orders')
-def click_returns(context):
-    context.driver.find_element(By.ID, "nav-orders").click()
+def click_orders_n_returns(context):
+    # context.driver.find_element(By.ID, "nav-orders").click()
+    context.app.header.click_orders_n_returns()
 
 
-@when('Input text {search_word}')
-def input_search_word(context, search_word):
-    context.driver.find_element(*AMAZON_SEARCH_FIELD).send_keys(search_word)
+@when('Input text {text}')
+def input_search_word(context, text):
+    # context.driver.find_element(*AMAZON_SEARCH_FIELD).send_keys(search_word)
+    context.app.header.input_search_text(text)
 
 
 @when('Click on search button')
 def click_search(context):
-    context.driver.find_element(*SEARCH_ICON).click()
+    # context.driver.find_element(*SEARCH_ICON).click()
+    context.app.header.click_search()
 
 
 @when('Click on Cart icon')
@@ -82,16 +86,12 @@ def num_items_shown(context, number):
 @then('Verify hamburger menu icon present')
 def verify_ham_menu_present(context):
     context.ham_menu = context.driver.find_element(*HAM_MENU)
-    print('Before refresh')
-    print(context.ham_menu)
     context.driver.refresh()
 
 
 @when('Click on ham menu')
 def click_ham_menu(context):
     context.ham_menu = context.driver.find_element(*HAM_MENU)
-    print('After refresh')
-    print(context.ham_menu)
     context.ham_menu.click()
 
 

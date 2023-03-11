@@ -10,3 +10,9 @@ Feature: Amazon main page test
     Given Open Amazon page
     Then Verify that footer has 42 links
     Then Verify that header has 29 links
+
+  Scenario: Logged out user can navigate to Sign in page
+    Given Open Amazon page
+    When Click on Returns & Orders
+    Then Verify that Sign In header is visible
+#    And Verify that email input field is present

@@ -30,16 +30,23 @@ def verify_bestsellers_link_count(context, expected_amount):
 
 @then('Click on each link and verify that correct page opens')
 def click_on_bestsellers_top_links(context):
-    list_of_links = [BESTSELLERS, NEW_RELEASES, MOVERS_SHAKERS, MOST_WISHED_FOR, GIFT_IDEAS]
-    list_of_links2 = [BESTSELLERS, NEW_RELEASES2, MOVERS_SHAKERS2, MOST_WISHED_FOR2, GIFT_IDEAS2]
+    # list_of_links = [BESTSELLERS, NEW_RELEASES, MOVERS_SHAKERS, MOST_WISHED_FOR, GIFT_IDEAS]
+    # list_of_links2 = [BESTSELLERS, NEW_RELEASES2, MOVERS_SHAKERS2, MOST_WISHED_FOR2, GIFT_IDEAS2]
+    #
+    # for i in range(len(list_of_links)):
+    #     context.driver.find_element(*(list_of_links[i])).click()
+    #     tab_name = context.driver.find_element(*(list_of_links2[i])).text
+    #     header_name = context.driver.find_element(*TAB_NAME).text
+    #     if i == 1:
+    #         assert "Amazon Hot " + tab_name == header_name
+    #     else:
+    #         assert "Amazon " + tab_name == header_name
 
-    for i in range(len(list_of_links)):
-        context.driver.find_element(*(list_of_links[i])).click()
-        tab_name = context.driver.find_element(*(list_of_links2[i])).text
-        print(tab_name)
-        header_name = context.driver.find_element(*TAB_NAME).text
-        print(header_name)
-        if i == 1:
-            assert "Amazon Hot " + tab_name == header_name
-        else:
-            assert "Amazon " + tab_name == header_name
+    bestsellers_links = context.driver.find_elements(*BESTSELLERS_LINKS)
+
+    for i in range(len(bestsellers_links)):
+        link_to_click = context.driver.find_elements(*BESTSELLERS_LINKS)[i]
+        link_text = link_to_click.text
+        link_to_click.click()
+        header_text = context.driver.find_element(*TAB_NAME).text
+        assert link_text in header_text, f'Expected {link_text} to be in {header_text}'

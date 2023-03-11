@@ -1,12 +1,6 @@
 # Created by TANYA at 2/16/23
 Feature: Homework Amazon page tests
 
-  Scenario: Logged out user can navigate to Sign in page
-    Given Open Amazon page
-    When Click on Returns & Orders
-    Then Verify that Sign In header is visible
-    And Verify that email input field is present
-
   Scenario: Check Amazon cart is empty
     Given Open Amazon page
     When Click on Cart icon
