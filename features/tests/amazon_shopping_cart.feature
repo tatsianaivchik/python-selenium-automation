@@ -1,10 +1,10 @@
 # Created by TANYA at 2/16/23
-Feature: Homework Amazon page tests
+Feature: Amazon shopping cart test cases
 
-  Scenario: Check Amazon cart is empty
+  Scenario: 'Your Shopping Cart is empty' shown if no product added
     Given Open Amazon page
     When Click on Cart icon
-    Then Verify that Cart is empty
+    Then Verify "Your Amazon Cart is empty" text present
     And Verify that 0 items shown
 
   Scenario: Adding item in the cart

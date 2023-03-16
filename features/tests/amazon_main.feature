@@ -14,5 +14,4 @@ Feature: Amazon main page test
   Scenario: Logged out user can navigate to Sign in page
     Given Open Amazon page
     When Click on Returns & Orders
-    Then Verify that Sign In header is visible
-#    And Verify that email input field is present
+    Then Verify Sign In page is opened

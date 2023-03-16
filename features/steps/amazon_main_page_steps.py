@@ -8,9 +8,8 @@ from time import sleep
 HAM_MENU = (By.ID, 'nav-hamburger-menu')
 FOOTER_LINKS = (By.CSS_SELECTOR, 'table.navFooterMoreOnAmazon td.navFooterDescItem')
 HEADER_LINKS = (By.CSS_SELECTOR, '#nav-xshop a.nav-a')
-BESTSELLERS_BUTTON = (By.CSS_SELECTOR, 'a.nav-a[href*="/gp/bestsellers/"]')
 CUSTOMER_SERVICE_BUTTON = (By.CSS_SELECTOR, 'a.nav-a[href*="=nav_cs_customerservice"]')
-SIGN_IN_BTN = (By.CSS_SELECTOR, '#nav-signin-tooltip a.nav-action-button')
+# SIGN_IN_BTN = (By.CSS_SELECTOR, '#nav-signin-tooltip a.nav-action-button')
 
 
 @given('Open Amazon page')
@@ -39,12 +38,14 @@ def click_search(context):
 
 @when('Click on Cart icon')
 def click_cart_icon(context):
-    context.driver.find_element(By.ID, 'nav-cart-count-container').click()
+    context.app.header.click_cart_icon()
+    # context.driver.find_element(By.ID, 'nav-cart-count-container').click()
 
 
 @when('Click on BestSellers button')
 def click_bestsellers_button(context):
-    context.driver.find_element(*BESTSELLERS_BUTTON).click()
+    context.app.header.click_bestsellers_button()
+    # context.driver.find_element(*BESTSELLERS_BUTTON).click()
 
 
 @when('Click on Customer Service button')
@@ -54,12 +55,13 @@ def click_customer_service_button(context):
 
 @when('Click Sign In from popup')
 def click_signin(context):
-    context.driver.wait.until(EC.visibility_of_element_located(SIGN_IN_BTN)).click()
-
-    context.driver.wait.until(
-        EC.visibility_of_element_located(SIGN_IN_BTN),
-        message='Sign In btn not visible'
-    ).click()
+    context.app.header.click_signin_from_popup()
+    # context.driver.wait.until(EC.visibility_of_element_located(SIGN_IN_BTN)).click()
+    #
+    # context.driver.wait.until(
+    #     EC.visibility_of_element_located(SIGN_IN_BTN),
+    #     message='Sign In btn not visible'
+    # ).click()
 
 
 @when('Wait for {sec} seconds')
@@ -68,7 +70,7 @@ def wait_for_sec(context, sec):
 
 @then('Verify Sign In popup shown')
 def verify_signin_popup_visible(context):
-    context.driver.wait.until(EC.visibility_of_element_located(SIGN_IN_BTN), message='Signin btn not found')
+    context.driver.wait.until(EC.presence_of_element_located(SIGN_IN_BTN), message='Signin btn not found')
 
 
 @then('Verify Sign In popup disappeared')
@@ -78,9 +80,10 @@ def verify_signin_popup_not_visible(context):
 
 @then('Verify that {number} items shown')
 def num_items_shown(context, number):
-    context.driver.implicitly_wait(2)
-    actual_result = context.driver.find_element(By.ID, 'nav-cart-count').text
-    assert actual_result == str(number), f'Expected {number} but got {actual_result}'
+    context.app.header.num_items_in_cart(number)
+    # context.driver.implicitly_wait(2)
+    # actual_result = context.driver.find_element(By.ID, 'nav-cart-count').text
+    # assert actual_result == str(number), f'Expected {number} but got {actual_result}'
 
 
 @then('Verify hamburger menu icon present')

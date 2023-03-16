@@ -1,8 +1,6 @@
 from selenium.webdriver.common.by import By
 from behave import given, when, then
 
-PRODUCT_NAME = (By.ID, 'productTitle')
-PRODUCT_PRICE = (By.CSS_SELECTOR, 'span.a-price.priceToPay') #current price broken into 2 lines(test failed)
 SEARCH_RESULTS = (By.CSS_SELECTOR, '[data-component-type="s-search-result"]')
 PRODUCT_IMAGE = (By.CSS_SELECTOR, '.s-image[data-image-latency="s-product-image"]')
 PRODUCT_NAME_FIELD = (By.CSS_SELECTOR, 'h2 span.a-text-normal')
@@ -17,15 +15,8 @@ def verify_search_result(context, expected_result):
 
 @when('Click on the first item in Results')
 def click_on_first_result(context):
-        context.driver.find_element(By.CSS_SELECTOR, 'img.s-image[alt*=ZENNI]').click()
-
-
-@when('Store product name and price')
-def get_product_name(context):
-    context.product_name = context.driver.find_element(*PRODUCT_NAME).text
-    print(f'Current product: {context.product_name}')
-    context.product_price = context.driver.find_element(*PRODUCT_PRICE).text
-    print(f'Current product price: {context.product_price}')
+    context.app.search_results_page.click_first_result()
+        # context.driver.find_element(*PRODUCT_PRICE).click()
 
 
 @then('Verify that every product has name and image')
