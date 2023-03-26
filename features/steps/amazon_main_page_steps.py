@@ -68,6 +68,22 @@ def click_signin(context):
 def wait_for_sec(context, sec):
     sleep(int(sec))
 
+
+@when('Hover over language options')
+def hover_lang_options(context):
+    context.app.header.hover_lang_options()
+
+
+@when('Select department by alias {alias}')
+def hover_lang_options(context, alias):
+    context.app.header.select_department(alias)
+
+
+@then('Verify Spanish option present')
+def verify_lang_shown(context):
+    context.app.header.verify_lang_shown()
+
+
 @then('Verify Sign In popup shown')
 def verify_signin_popup_visible(context):
     context.driver.wait.until(EC.presence_of_element_located(SIGN_IN_BTN), message='Signin btn not found')

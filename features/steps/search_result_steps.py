@@ -28,3 +28,8 @@ def verify_every_prod_has_name_and_image(context):
     for product in all_products:
         assert product.find_element(*PRODUCT_IMAGE).is_displayed(), 'Product image is missing'
         assert product.find_element(*PRODUCT_NAME_FIELD).text, 'Product name is missing'
+
+
+@then('Verify {category} department is selected')
+def verify_selected_dept(context, category):
+    context.app.search_results_page.verify_selected_dept(category)
