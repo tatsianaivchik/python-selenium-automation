@@ -21,16 +21,14 @@ Feature: Amazon main page test
     When Hover over language options
     Then Verify Spanish option present
 
-  Scenario: User can select and search in the Audible Books & Originals department
+  Scenario Outline: User can select and search in a special department
     Given Open Amazon page
-    When Select department by alias audible
-    When Input text Faust
+    When Select department by alias <department>
+    When Input text <search_word>
     When Click on search button
-    Then Verify audible department is selected
-
-#  Scenario: User can select and search in the Automotive Parts & Accessories department
-#    Given Open Amazon page
-#    When Select department by alias automotive
-#    When Input text Faust
-#    When Click on search button
-#    Then Verify automotive department is selected
+    Then Verify <department> department is selected
+    Examples:
+    |department      |search_word        |
+    |amazonfresh     |Banana             |
+    |petfoodexpress  |Dog food           |
+    |automotive      |windshield wipers  |

@@ -22,6 +22,11 @@ def add_product_to_cart(context):
     # context.driver.find_element(By.ID, 'add-to-cart-button').click()
 
 
+@when('Hover over New Arrivals Tab')
+def hover_new_arrivals(context):
+    context.app.product_page.hover_new_arrivals()
+
+
 @then('Verify user can click through colors')
 def verify_user_can_select_colors(context):
     expected_colors = ['Army Green', 'Black', 'Blue', 'Brown', 'Burgundy', 'Caramel', 'Dark Blue', 'Denim Blue', 'Gray',
@@ -62,3 +67,8 @@ def verify_user_can_pick_different_colors(context):
     #     actual_colors += [current_color]
     #
     # assert expected_colors == actual_colors, f'Expected {expected_colors} but got {actual_colors}'
+
+
+@then("Verify that user sees category Women's")
+def verify_user_sees_new_arrivals_selections(context):
+    context.app.product_page.verify_user_sees_new_arrivals_selections()
